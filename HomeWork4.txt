@@ -1,0 +1,30 @@
+/* Подсчитать количество групп, в которые вступил каждый пользователь.*/
+
+select * FROM users_communities;
+
+SELECT id, count(*) AS CommunityCount
+FROM users
+INNER JOIN users_communities
+ON users.id = users_communities.user_id
+GROUP BY id
+;
+
+/*Подсчитать количество пользователей в каждом сообществе.*/
+
+SELECT community_id, count(*) AS PeopleCount
+FROM users_communities
+GROUP BY community_id;
+
+/* Пусть задан некоторый пользователь. Из всех пользователей соц. сети найдите человека,
+который больше всех общался с выбранным пользователем (написал ему сообщений).*/
+
+select * FROM messages;
+
+SELECT to_user_id AS NeedsUser, count(*) AS CountMessage, from_user_id
+FROM messages
+where messages.to_user_id = 1
+group by NeedsUser, from_user_id
+ORDER BY CountMessage DESC
+LIMIT 1;
+
+
